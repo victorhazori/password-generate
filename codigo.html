@@ -258,5 +258,130 @@
 
         console.log(multipli(valores, func))
 
+        // Type casting e Type coersion
+        // Type casting = Conversão pelo usuário
+        // Type coersion = Conversão 'coercitiva' pela VM
+        console.log("2" + 2)
+        console.log(Number("2") + 2)
+
+        // Number <-> String
+        console.log(Number("4")) // Converte para número
+        console.log(String(6)) // Converte para string
+
+        // Number e String <-> Boolean
+        console.log(Boolean("")) // Converte para boolean
+        console.log(Boolean("abc"))
+        console.log(Boolean(0))
+        console.log(Boolean(1))
+
+        console.log(Number(false)) // Converteu para 0 
+        console.log(Number(true)) // Converteu para 1
+
+        console.log(String(false)) // Converteu para string
+        console.log(String(true)) // Converteu para string
+
+        // String <-> Date
+        console.log(new Date("2023/04/22 12:00"))
+        console.log(new Date().toString())
+        console.log(new Date().toISOString())
+
+        // String <-> Array
+        let myname = "Victor"
+
+        console.log(myname[2])
+
+        for (const v of name) {
+            console.log(v)
+        }
+
+        let muitosvalores = [1, 2, 3, 4, 5, 10, 20]
+        console.log(muitosvalores.join(" ")) // Transforma um array em string
+
+        let nomecompleto = "Victor Magalhães"
+        console.log(nomecompleto.split(" ")) // Divide uma string em array
+
+        // Casas decimais - Formatação e arredondamento
+        let variavelvalor = 1234.70
+
+        console.log(variavelvalor.toFixed(2)) // Fixa e arredonda para cima
+
+        console.log(Math.ceil(variavelvalor)) // Arredonda para cima indiferente do valor decimal
+        
+        console.log(Math.floor(variavelvalor)) // Arredonda para baixo indiferente do valor decimal
+
+        console.log(Math.round(variavelvalor)) // Arredonda para baixo ou para cima dependendo do decimal
+
+        console.log(
+            new Intl.NumberFormat("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+            }).format(variavelvalor)
+        ) // Faz uma formatação para exibição
+
+        // Contando dígitos
+        let contnome = "Victor"
+        let contnum = 12345
+
+        console.log(contnome.length)
+        console.log(String(contnum).length)
+
+        // Separando e juntando strings
+        let frase = "Eu sou um cara legal!"
+        
+        console.log(frase)
+        console.log(frase.split(" ").join(""))
+        
+        // Maíusculas e minúsculas
+        let fra = "Viver é maravilhoso!"
+        
+        console.log(fra)
+        console.log(fra.toLocaleLowerCase()) // Tudo em minúsculo
+        console.log(fra.toLocaleUpperCase()) // Tudo em maíusculo
+
+        // Localizando strings
+        let frasestring = "Eu sou um cara legal!"
+
+        console.log(frasestring)
+        console.log(frasestring.toLocaleLowerCase().includes("eu")) // True or false olhando o caracter passado
+        
+        // Substituindo strings
+        let frasesubs = "Paulo era um cara legal!"
+
+        console.log(frasesubs)
+        console.log(frasesubs.replace("Paulo", "Jonny"))
+
+        // Convertendo JSON
+        // JSON - JavaScript Object Notation
+        // JSON.stringfy()
+        // JSON.parse()
+        const people = [
+            {
+                id: 1,
+                name: "Victor",
+                lastName: "Magalhães",
+                bornDate: new Date(1995, 8, 3),
+                adress: {
+                    city: "Coronel Fabriciano",
+                },
+            },
+            {
+                id: 2,
+                name: "Felipe",
+                lastName: "Fontoura",
+                bornDate: new Date(1982, 1, 18),
+                adress: {
+                    city: "São José dos Campos",
+                },
+            },
+        ]
+        
+        console.log(people)
+        console.log(JSON.stringify(people)) // Conversão de obj -> string / JSON
+
+        const stringjson = '[{"id":1,"name":"Victor","lastName":"Magalhães","bornDate":"1995-09-03T03:00:00.000Z","adress":{"city":"Coronel Fabriciano"}},{"id":2,"name":"Felipe","lastName":"Fontoura","bornDate":"1982-02-18T03:00:00.000Z","adress":{"city":"São José dos Campos"}}]'
+        console.log(stringjson)
+        console.log(JSON.parse(stringjson)) // Conversão de string / JSON -> obj
+        
+
     </script>
 </html>
