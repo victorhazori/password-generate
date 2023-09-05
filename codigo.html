@@ -429,5 +429,91 @@
         console.log("n1", n1)
         console.log("n2", n2)
 
+        // Filter Array
+        // Filtra os arrays por parametros passados
+        const numfilter = [10, 18, 1, 15]
+        
+        let resfilter = numfilter.filter((n) => n > 10)
+
+        console.log(resfilter)
+
+        const pessoafilter = [
+            { name: "Victor", gender: "M", age: 28},
+            { name: "Amanda", gender: "F", age: 40},
+            { name: "Felipe", gender: "M", age: 14},
+        ]
+
+        let respessoa = pessoafilter.filter((p) => (p.age >= 18 && p.gender === "M"))
+        console.log(respessoa)
+
+        // Map Array
+        // Trabalha o array de acordo com os parametros passados
+        const nummap = [1, 2, 3, 4, 5]
+
+        const double = nummap.map((n) => n * 2)
+
+        console.log(double)
+
+        const pessoamap = [
+            { name: "Victor", gender: "M", age: 28},
+            { name: "aManda", gender: "F", age: 40},
+            { name: "felipE", gender: "M", age: 14},
+        ]
+        
+        const newname = pessoamap.map((p) => p.name.toUpperCase())
+        console.log(newname)
+
+        // Reduce Array
+        // Ref. https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
+
+        //   array.reduce(callback[, initialValue])
+        //
+        //   callback - Função que é executada em cada valor no array, recebe quatro argumentos:
+        //   acumulator - O valor retornado na última invocação do *callback*, ou o argumento Valor Inicial, se fornecido.
+        //   currentValue - O elemento atual que está sendo processado no array.
+        //   indice - O índice do elemento atual que está sendo processado no array.
+        //   array - O array ao qual a função reduce foi chamada.
+        //   initialValue - Opcional. Objeto a ser usado como o primeiro argumento da primeira chamada da função callback.
+
+        let valoresreduce = [1.5, 2, 4, 10]
+
+        // function callback(acumulator, currentValue, index, array) {
+        //     console.log(`acumulator`, acumulator)
+        //     console.log(`currentValue`, currentValue)
+        //     console.log(`index`, index)
+        //     console.log(`array`, array)
+        //     console.log("---")
+
+        //     // return acumulator
+        // }
+
+        // valoresreduce.reduce(callback)
+
+        // Agregação
+        let sumreduce = valoresreduce.reduce((total, item) => total + item, 0)
+        console.log("sum", sumreduce)
+
+        let avgreal = (valoresreduce.reduce((agre, item) => (agre + item), 0)) / valoresreduce.length
+        console.log('avgreal', avgreal)
+
+        // let avg = valoresreduce.reduce(
+        //   (total, item, index) => (total + item) / (index + 1),
+        //   0
+        // )
+        // console.log("avg", avg)
+
+        // Map
+        let doublereduce = valoresreduce.reduce((total, item) => total.concat(item * 2), [])
+        console.log("double", doublereduce)
+
+        // Filter
+        let newreduce = valoresreduce.reduce((total, item) => {
+          if (item > 2) {
+            total.push(item)
+          }
+          return total
+        }, [])
+        console.log("newValues", newreduce)
+
     </script>
 </html>
