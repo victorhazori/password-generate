@@ -381,7 +381,53 @@
         const stringjson = '[{"id":1,"name":"Victor","lastName":"Magalhães","bornDate":"1995-09-03T03:00:00.000Z","adress":{"city":"Coronel Fabriciano"}},{"id":2,"name":"Felipe","lastName":"Fontoura","bornDate":"1982-02-18T03:00:00.000Z","adress":{"city":"São José dos Campos"}}]'
         console.log(stringjson)
         console.log(JSON.parse(stringjson)) // Conversão de string / JSON -> obj
-        
+
+        // Métodos básicos de manipulação de Array
+        let metodoarray = ["Victor", "Felipe", "André", "Paulo", "Jonny"]
+
+        // Retornar elementos especificos de um array
+        console.log(metodoarray[2])
+        console.log(metodoarray[metodoarray.length - 1])
+
+        // Retornar "fatias" de um array
+        console.log(metodoarray.slice(2))
+        console.log(metodoarray.slice(1, 3))
+
+        // Adicionar novos elementos no array (início ou fim)
+        metodoarray.push("Ana") // Adiciona no final
+        console.log(metodoarray)
+        metodoarray.unshift("Maria") // Adicona no início
+        console.log(metodoarray)
+
+        // Remover elementos no array (início ou fim)
+        metodoarray.pop() // Remove do fim
+        console.log(metodoarray)
+        metodoarray.shift() // Remove do início
+        console.log(metodoarray)
+
+        // Remover "fatias" de um array
+        metodoarray.splice(1, 2)
+        console.log(metodoarray)
+
+        // Localizar elementos
+        let index = metodoarray.indexOf("Jonny")
+        metodoarray.splice(index, 1)
+        console.log(metodoarray)
+
+        // Concatenação de Array
+        let set1 = [1, 2, 3, 4, 5]
+        let set2 = [6, 7, 8, 9, 10]
+        let set3 = [11, 12]
+
+        console.log(set1.concat(set2).concat(set3))
+
+        // Desestruturação de Array
+        let set = [1, 2, 3, 4, 5]
+
+        let [n1, n2] = set
+
+        console.log("n1", n1)
+        console.log("n2", n2)
 
     </script>
 </html>
