@@ -39,6 +39,14 @@
         <button id="alter-color">Alterar cor</button>
         <button id="alter-class">Alterar classe</button>
     </p>
+    <p>
+        <button id="exec-button">Executar</button>
+    </p>
+    <p>
+        <button id="recuve-button">Recuperar Dados</button>
+        <br />
+        <br />
+    </p>
     <script>
         // Hierarquia do DOM
         // Document --> Nodes --> Elements --> Attributes
@@ -187,6 +195,152 @@
             textClassEl.classList.toggle("highlight")
         })
         
+        // Promeses e processamento assíncrono
+        // Uma Promise está em um destes estados:
+        // pending (pendente): Estado inicial, que não foi realizada nem rejeitada.
+        // fulfilled (realizada): Sucesso na operação
+        // rejected (rejeitado): Falha na operação
+        // let count = 0
+        // function testPromise() {
+        //     const promiseCount = ++count
+        //     console.log("Sync started")
+
+        //     new Promise((resolve, reject) => {
+        //         setTimeout(() => {
+        //             if (promiseCount % 2 == 0) {
+        //                 resolve(promiseCount)
+        //             } else {
+        //                 reject(promiseCount)
+        //             }
+        //         }, 1000)
+        //     })
+        //     .then((value) => {
+        //         console.log(`Promise async ok - ${value}`)
+        //     })
+        //     .catch((value) => {
+        //         console.error(`Promise async error - ${value}`)
+        //     })
+
+        //     console.log("Sync finished")
+        // }
+
+        // const buttonExeEl = document.querySelector("#exec-button")
+        // buttonExeEl.addEventListener("click", testPromise)
+
+        // Promise.all
+        // function testPromise() {
+        //     console.log("Sync started")
+
+        //     const p1 = new Promise((resolve, reject) => {
+        //         setTimeout(() => {
+        //             console.log("P1 finished")
+        //             resolve(1)
+        //         }, 1000)
+        //     })
+
+        //     const p2 = new Promise((resolve, reject) => {
+        //         setTimeout(() => {
+        //             console.log("P2 finished")
+        //             resolve(2)
+        //         }, 2000)
+        //     })
+
+        //     const p3 = new Promise((resolve, reject) => {
+        //         setTimeout(() => {
+        //             console.log("P3 finished")
+        //             reject(3)
+        //         }, 3000)
+        //     })
+
+        //     Promise.all([p1, p2, p3]).then((values) => {
+        //         console.log("Promises values ok", values)
+        //     }).catch((values) => {
+        //         console.error("Promesis values error", values)
+        //     })
+
+        //     console.log("Sync finished")
+        // }
+
+        // const buttonExeEl = document.querySelector("#exec-button")
+        // buttonExeEl.addEventListener("click", testPromise)
+
+        // JSON
+        // JavaScrip Object Notation
+        // JSON.stringify(obj) // Converte para string JSON
+        // JSON.parse(str) // Converte para objeto
+
+        // Trabalhando com o JSON
+        // const person = {
+        //     name: "Victor Magalhães",
+        //     age: 28,
+        //     adress: {
+        //         street: "Rua 2",
+        //         number: 149,
+        //         complement: "",
+        //         district: "Silvio Pereira",
+        //         city: "Coronel Fabriciano",
+        //         state: "Minas Gerais",
+        //     },
+        // }
+
+        // const personObj = JSON.stringify(person)
+        // const personJSON = JSON.parse(personObj)
+
+        // console.log(typeof person)
+        // console.log("person:", person)
+        // console.log(typeof personObj)
+        // console.log("personString:", personObj)
+        // console.log(typeof personJSON)
+        // console.log("personJSON:", personJSON)
+        // console.log(personObj == person) // False
+
+        // AJAX
+        // Asynchronous JavaScript And XML (AJAX)
+        // Forma de realizar chamada de dados assíncronas
+        // Comunicação entre navegador e servidor "sem sair da página"
+        
+        // Trabalhando com o AJAX
+        const loadData = () => {
+            const xhr = new XMLHttpRequest()
+
+            xhr.open("GET", "https://api.github.com/users/victorhazori")
+            xhr.send(null)
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4){
+                    const res = JSON.parse(xhr.responseText)
+                    console.log(res)
+
+                    const name = res.name
+                    const avatarUrl = res.avatar_url
+                    var followers = res.followers
+                    var blogUrl = res.html_url
+                    
+                    const avatarEl = document.createElement("img")
+                    avatarEl.setAttribute("width", "128")
+                    avatarEl.setAttribute("src", avatarUrl)
+
+                    const nameEl = document.createElement("h1")
+                    nameEl.innerText = name
+
+                    const followersEl = document.createElement("p")
+                    followersEl.innerText = `Followers: ${followers}`
+                    
+                    const blogUrlEl = document.createElement("a")
+                    blogUrlEl.setAttribute("href", `${blogUrl}`)
+                    blogUrlEl.innerText = blogUrl
+
+                    document.body.appendChild(avatarEl)
+                    document.body.appendChild(nameEl)
+                    document.body.appendChild(followersEl)
+                    document.body.appendChild(blogUrlEl)
+                }
+            }
+        }
+
+        const buttonRecuveEl = document.querySelector("#recuve-button")
+        buttonRecuveEl.addEventListener("click", loadData)
+
+        // End JS Advanced
 
     </script>
   </body>
