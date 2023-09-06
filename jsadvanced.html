@@ -1,6 +1,11 @@
 <html>
   <head>
     <meta charset="UTF-8" />
+    <style>
+        .highlight {
+            color: green;
+        }
+    </style>
     <title>Curriculum</title>
   </head>
   <body>
@@ -15,6 +20,24 @@
       Para mais detalhes, por favor, visite meu
       <a href="https://github.com/victorhazori">Github</a> ou 
       <a href="https://inhousetech.com.br">Portfólio</a>.
+    </p>
+    <p>
+        <button>LinkedIn</button>
+        <a href="https://linkedin.com/in/vslmagalhaes">Link para o LinkedIn</a>
+    </p>
+    <p>
+        <input type="text" />
+    </p>
+    <p>
+        <form action="https://google.com/search" method="get">
+            <label for="q">Buscar no Google</label>
+            <input type="text" name="q" />
+            <input type="submit" value="Pesquisar" />
+        </form>
+    </p>
+    <p>
+        <button id="alter-color">Alterar cor</button>
+        <button id="alter-class">Alterar classe</button>
     </p>
     <script>
         // Hierarquia do DOM
@@ -48,20 +71,122 @@
         // Descendentes (espaço): el el
         // Childs (>): el > el
 
-        console.log("*", document.querySelectorAll("*"))
-        console.log("id", document.querySelector("#person-name"))
-        console.log("tag", document.querySelectorAll("p"))
-        console.log("class", document.querySelectorAll(".text"))
-        console.log("attr", document.querySelectorAll("a[href]"))
-        console.log(
-            "attr",
-            document.querySelectorAll("a[href='https://inhousetech.com.br']")
-        )
+        // console.log("*", document.querySelectorAll("*"))
+        // console.log("id", document.querySelector("#person-name"))
+        // console.log("tag", document.querySelectorAll("p"))
+        // console.log("class", document.querySelectorAll(".text"))
+        // console.log("attr", document.querySelectorAll("a[href]"))
+        // console.log(
+        //     "attr",
+        //     document.querySelectorAll("a[href='https://inhousetech.com.br']")
+        // )
         
-        // Iterando toda a árvore DOM ...
-        for (const el of document.querySelectorAll("*")) {
-            console.log("el", el)
-        }
+        // // Iterando toda a árvore DOM ...
+        // for (const el of document.querySelectorAll("*")) {
+        //     console.log("el", el)
+        // }
+        // https://try.jsoup.org/
+        
+        // Alterando um objeto do DOM
+
+        // const titleEl = document.querySelector("#person-name")
+        // console.log(titleEl)
+        // console.log("titleEl value:", titleEl.innerHTML)
+        // titleEl.innerHTML = "Victor Soares Lage de Magalhães"
+        // titleEl.style.color = "blue"
+        // console.log(titleEl)
+        
+        // Criando elementos dinamicamente no DOM
+        
+        // const subTitleEl = document.createElement("h2")
+        // subTitleEl.innerHTML = "Projetos"
+
+        // const pjListEL = document.createElement("ul")
+
+        // const pjListItem1El = document.createElement("li")
+        // pjListItem1El.innerHTML =  "TODO MVC"
+
+        // const pjListItem2El = document.createElement("li")
+        // pjListItem2El.innerHTML =  "Github API"
+
+        // const pjListItem3El = document.createElement("li")
+        // pjListItem3El.innerHTML =  "eCommerce"
+        
+        // pjListEL.append(pjListItem1El)
+        // pjListEL.append(pjListItem2El)
+        // pjListEL.append(pjListItem3El)
+
+        // document.body.append(subTitleEl)
+        // document.body.append(pjListEL)
+
+        // Eventos do DOM
+        // https://developer.mozilla.org/en-US/docs/Web/Events
+
+        // Evento de página recarregada - DOMContentLoaded
+        // document.addEventListener("DOMContentLoaded", () => {
+        //     const el1 = document.getElementById("person-name")
+        //     console.log("el1", el1)
+        // })
+
+        // Evento de clique - click
+        // https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event
+        // const button = document.querySelector("button")
+        // button.addEventListener("click", () => {
+        //     console.log("Clicou no botão!")
+        // })
+        // const hyperlink = document.querySelector("a")
+        // hyperlink.addEventListener("click", (event) => {
+        //     event.preventDefault()
+        //     console.log("Clicou no hyperlink!")
+        // })
+
+        // Evento de tecla - keydown e keyup
+        // https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event
+        // const inputEl = document.querySelector("input[type=text]")
+        // inputEl.addEventListener("keydown", (event) => {
+        //     console.log(`Keydown - ${event.key} - ${event.keyCode}`)
+        //     if (event.keyCode === 13) {
+        //         alert(`Tecla ENTER pressionada - ${inputEl.value}`)
+        //         inputEl.value = ""
+        //     }
+        // })
+
+        // Evento de formulário - onsubmit
+        // https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit_event
+        // const formEl = document.querySelector("form")
+        // formEl.addEventListener("submit", (event) => {
+        //     const queryValue = event.target.querySelector("input[name=q]").value
+
+        //     if (!queryValue) {
+        //         event.preventDefault()
+        //         alert("O campo busca é obrigatório!")
+        //     }
+
+        //     console.log("Submit", event)
+        //     console.log("Valor", queryValue)
+        // })
+
+        // Manipulando style CSS
+        // https://developer.mozilla.org/en-US/docs/Web/CSS/Reference#index
+        const textEl = document.querySelector("#person-name")
+        const buttonEl = document.querySelector("#alter-color")
+        buttonEl.addEventListener("click", () => {
+            if (textEl.style.color != "blue") {
+                textEl.style = "color: blue"
+            } else {
+                textEl.style = "color: black"
+            }
+        })
+
+        // Manipulando class CSS
+        // https://developer.mozilla.org/en-US/docs/Web/CSS/Reference#index
+        const textClassEl = document.querySelector("#person-name")
+        const buttonClassEl = document.querySelector("#alter-class")
+        buttonClassEl.addEventListener("click", () => {
+            textEl.style.color = ""
+            textClassEl.classList.toggle("highlight")
+        })
+        
 
     </script>
   </body>
