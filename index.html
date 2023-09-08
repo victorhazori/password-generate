@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE-edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@600&family=Inter:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Gerador de Senhas</title>
+</head>
+
+<body>
+    <main>
+        <section class="hero">
+            <h1 class="title">Gerador de senhas</h1>
+            <p class="subtitle">Utilize o nosso gerador online para criar uma senha forte e segura.</p>
+        </section>
+        <section class="box">
+            <div class="password">
+                <div class="text">
+                    <input type="text" name="password" id="password">
+                </div>
+                <div class="actions">
+                    <button id="copy"><img src="copy.svg" width="42"></button>
+                    <button id="renew"><img src="renew.svg" width="42"></button>
+                </div>
+            </div>
+            <div class="security-indicator">
+                <div id="security-indicator-bar" class="bar" style="width: 90%"></div>
+            </div>
+            <div class="status"><span id="status"></span></div>
+        </section>
+
+        <section class="box customize">
+            <h3 class="title">Personalizar</h3>
+            <div class="actions">
+                <div class="password-length">
+                    <p>Tamanho: <span id="password-length-text">16</span></p>
+                    <input type="range" name="password-length" id="password-length" class="slider" value="16" min="4"
+                        max="64">
+                </div>
+                <div class="config">
+                    <label class="checkbox-container">
+                        <span class="text">Maíusculas</span>
+                        <input type="checkbox" id="uppercase-check" checked>
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-container">
+                        <span class="text">Números</span>
+                        <input type="checkbox" id="number-check" checked>
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="checkbox-container">
+                        <span class="text">Símbolos</span>
+                        <input type="checkbox" id="symbol-check" checked>
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+            </div>
+        </section>
+        <div class="submit">
+            <button id="button-copy">Copiar senha</button>
+        </div>
+    </main>
+    <script>
+        let inputRange = 16
+        const inputPasswordEl = document.querySelector("#password")
+        const upperCheck = document.querySelector("#uppercase-check")
+        const numberCheck = document.querySelector("#number-check")
+        const symbolCheck = document.querySelector("#symbol-check")
+        const statusBar = document.querySelector("#security-indicator-bar")
+        const statusForce = document.querySelector("#status")
+
+        function generatePassword() {
+            let chars = "abcdefghjklmnpqrstuvxyz"
+            const upperCaseChars = "ABCDEFGHJKLMNPQRSTUVXYZ"
+            const numberChars = "123456789"
+            const symbolChars = "?!@&*()[]"
+            let password = ""
+
+            passwordSecurity()
+            calculateFontSize()
+            
+            if (upperCheck.checked) {
+                chars += upperCaseChars
+            }
+            if (numberCheck.checked) {
+                chars += numberChars
+            }
+            if (symbolCheck.checked) {
+                chars += symbolChars
+            }
+            
+            for (let i = 0; i < inputRange; i++) {
+                const randomNumber = Math.floor(Math.random() * chars.length)
+                password += chars.substring(randomNumber, randomNumber + 1)
+            }
+            inputPasswordEl.value = password
+        }
+
+        function copy() {
+            navigator.clipboard.writeText(inputPasswordEl.value)
+            console.log("Senha copiada!")
+        }
+
+        const inputSliderEl = document.querySelector("#password-length")
+        inputSliderEl.addEventListener("input", () => {
+            inputRange = Number(inputSliderEl.value)
+            document.querySelector("#password-length-text").innerText = inputRange
+            generatePassword()
+        })
+
+        function passwordSecurity () {
+            let percent =  Math.round((inputRange / 64) * 100)
+            let passCheck = 0
+
+            if (upperCheck.checked == true || numberCheck.checked == true || symbolCheck.checked == true) {
+                if (upperCheck.checked == true) {passCheck++}
+                if (numberCheck.checked == true) {passCheck++}
+                if (symbolCheck.checked == true) {passCheck++}
+            } else {
+                passCheck = 0
+            }
+
+            switch (passCheck) {
+                case 3:
+                    percent += 15
+                    break
+                case 2:
+                    percent += 10
+                    break
+                case 1:
+                    percent += 5
+                    break
+                default:
+                    percent -= 5
+                    break
+            }
+            if (percent < 0) {
+                statusBar.style.width = `2%`
+            } else if (percent > 100) {
+                statusBar.style.width = `100%`
+            } else {
+                statusBar.style.width = `${percent}%`
+            }
+
+            if (percent >= 100) {
+                statusBar.className = "bar safe complete"
+                statusForce.innerText = "Senha muito segura"
+            } else if (percent >= 70 && percent < 100) {
+                statusBar.className = "bar safe"
+                statusForce.innerText = "Senha segura"
+            } else if (percent >= 40 && percent < 70) {
+                statusBar.className = "bar warning"
+                statusForce.innerText = "Senha razoável"
+            } else if (percent < 40) {
+                statusBar.className = "bar critical"
+                statusForce.innerText = "Senha fraca"
+            }
+        }
+
+        function calculateFontSize() {
+            if (inputRange > 51) {
+                inputPasswordEl.classList.remove("font-sm")
+                inputPasswordEl.classList.remove("font-xs")
+                inputPasswordEl.classList.add("font-xxs")
+            } else if (inputRange > 38) {
+                inputPasswordEl.classList.remove("font-sm")
+                inputPasswordEl.classList.remove("font-xxs")
+                inputPasswordEl.classList.add("font-xs")
+            } else if (inputRange > 25) {
+                inputPasswordEl.classList.remove("font-xxs")
+                inputPasswordEl.classList.remove("font-xs")
+                inputPasswordEl.classList.add("font-sm")
+            } else {
+                inputPasswordEl.classList.remove("font-sm")
+                inputPasswordEl.classList.remove("font-xs")
+                inputPasswordEl.classList.remove("font-xxs")
+            }
+        }
+
+        document.querySelector("#uppercase-check").addEventListener("click", generatePassword)
+        document.querySelector("#number-check").addEventListener("click", generatePassword)
+        document.querySelector("#symbol-check").addEventListener("click", generatePassword)
+        document.querySelector("#renew").addEventListener("click", generatePassword)
+
+        document.querySelector("#copy").addEventListener("click", copy)
+        document.querySelector("#button-copy").addEventListener("click", copy)
+
+        generatePassword()
+    </script>
+</body>
+
+</html>
