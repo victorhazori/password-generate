@@ -126,6 +126,21 @@ main {
     user-select: none;
 }
 
+.assinatura {
+    font-family: "Inconsolata", "serif";
+    font-size: 1.25rem;
+    text-align: center;
+    /* border: none;
+    outline: none;
+    cursor: default; */
+    width: 100%;
+    transition: all 0.2s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 .customize {
     padding: 1rem 1.5rem;
 }
