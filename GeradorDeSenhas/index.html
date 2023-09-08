@@ -71,8 +71,24 @@
         const inputPasswordEl = document.querySelector("#password")
 
         function generatePassword() {
-            const chars = "abcdefghjklmnpqrstuvxyzABCDEFGHJKLMNPQRSTUVXYZ123456789?!@&*()[]"
+            let chars = "abcdefghjklmnpqrstuvxyz"
+            const upperCaseChars = "ABCDEFGHJKLMNPQRSTUVXYZ"
+            const numberChars = "123456789"
+            const symbolChars = "?!@&*()[]"
             let password = ""
+
+            passwordSecurity()
+            
+            if (document.querySelector("#uppercase-check").checked) {
+                chars += upperCaseChars
+            }
+            if (document.querySelector("#number-check").checked) {
+                chars += numberChars
+            }
+            if (document.querySelector("#symbol-check").checked) {
+                chars += symbolChars
+            }
+            
             for (let i = 0; i < inputRange; i++) {
                 const randomNumber = Math.floor(Math.random() * chars.length)
                 password += chars.substring(randomNumber, randomNumber + 1)
@@ -82,13 +98,32 @@
 
         function copy() {
             navigator.clipboard.writeText(inputPasswordEl.value)
+            console.log("Senha copiada!")
         }
 
         const inputSliderEl = document.querySelector("#password-length")
         inputSliderEl.addEventListener("input", () => {
             inputRange = Number(inputSliderEl.value)
+            document.querySelector("#password-length-text").innerText = inputRange
             generatePassword()
         })
+
+        function passwordSecurity () {
+            const statusBar = document.querySelector("#security-indicator-bar")
+
+            if (inputRange >= 20) {
+                statusBar.className = "bar safe"
+            } else if (inputRange >= 16) {
+                statusBar.className = "bar warning"
+            } else if (inputRange < 16) {
+                statusBar.className = "bar critical"
+            }
+        }
+
+        document.querySelector("#uppercase-check").addEventListener("click", generatePassword)
+        document.querySelector("#number-check").addEventListener("click", generatePassword)
+        document.querySelector("#symbol-check").addEventListener("click", generatePassword)
+        document.querySelector("#renew").addEventListener("click", generatePassword)
 
         document.querySelector("#copy").addEventListener("click", copy)
         document.querySelector("#button-copy").addEventListener("click", copy)
