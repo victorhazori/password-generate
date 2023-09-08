@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE-edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
     <title>Gerador de Senhas</title>
 </head>
 <body>
@@ -31,20 +33,33 @@
         // Início do Código
         // Gerador de Senhas
         // Aula 2 - 1
+        let inputRange = 16
+        const inputPasswordEl = document.querySelector("#password")
+
         function generatePassword() {
             const chars = "abcdefghjklmnpqrstuvxyzABCDEFGHJKLMNPQRSTUVXYZ123456789?!@&*()[]"
             let password = ""
-            const inputSliderEl = document.querySelector("#password-length")
-            let length = Number(inputSliderEl.value)
-
-            for (let i = 0; i < length; i++) {
+            for (let i = 0; i < inputRange; i++) {
                 const randomNumber = Math.floor(Math.random() * chars.length)
                 password += chars.substring(randomNumber, randomNumber + 1)
             }
-            const inputPasswordEl = document.querySelector("#password")
             inputPasswordEl.value = password
-            console.log(password)
         }
+
+        function copy() {
+            navigator.clipboard.writeText(inputPasswordEl.value)
+        }
+
+        const inputSliderEl = document.querySelector("#password-length")
+        inputSliderEl.addEventListener("input", () => {
+            inputRange = Number(inputSliderEl.value)
+            console.log(inputRange)
+            generatePassword()
+        })
+
+        const buttonCopyEl = document.querySelector("#button-copy")
+        buttonCopyEl.addEventListener("click", copy)
+
         generatePassword()
     </script>
 </body>
