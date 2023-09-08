@@ -46,6 +46,7 @@ main {
 .password .text input {
     font-family: "Inconsolata", "serif";
     font-size: 3rem;
+    text-align: center;
     border: none;
     outline: none;
     cursor: default;
@@ -56,6 +57,18 @@ main {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+.password .text input.font-sm {
+    font-size: 2rem;
+}
+
+.password .text input.font-xs {
+    font-size: 1.5rem;
+}
+
+.password .text input.font-xxs {
+    font-size: 1rem;
 }
 
 .password .actions button {
@@ -69,20 +82,21 @@ main {
 .security-indicator {
     height: 10px;
     background-color: #ddd;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    /* border-bottom-left-radius: 8px; */
+    /* border-bottom-right-radius: 8px; */
 }
 
 .security-indicator .bar {
     height: 10px;
     border-top-right-radius: 8px;
-    border-bottom-left-radius: 8px;
+    /* border-bottom-left-radius: 8px; */
     border-bottom-right-radius: 8px;
     transition: all 0.2s;
 }
 
 .security-indicator .bar.complete {
     border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 .security-indicator .bar.critical {
@@ -95,6 +109,21 @@ main {
 
 .security-indicator .bar.safe {
     background-color: #27ae60;
+}
+
+.status {
+    font-family: "Inconsolata", "serif";
+    font-size: 1.25rem;
+    text-align: center;
+    /* border: none;
+    outline: none;
+    cursor: default; */
+    width: 100%;
+    transition: all 0.2s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .customize {
@@ -226,4 +255,25 @@ main {
 
 .submit button:hover {
     background-color: #9b51e0;
+}
+
+@media only screen and (max-width: 480px) {
+    .password {
+        padding: 1rem;
+    }
+    .password .text input {
+        font-size: 1.5rem;
+    }
+    .password .text input.font-sm {
+        font-size: 1.2rem;
+    }
+    .password .text input.font-xs {
+        font-size: 1rem;
+    }
+    .password .text input.font-xxs {
+        font-size: 1rem;
+    }
+    .password .actions img {
+        width: 24px;
+    }
 }

@@ -33,6 +33,7 @@
             <div class="security-indicator">
                 <div id="security-indicator-bar" class="bar" style="width: 90%"></div>
             </div>
+            <div class="status"><span id="status"></span></div>
         </section>
 
         <section class="box customize">
@@ -69,6 +70,11 @@
     <script>
         let inputRange = 16
         const inputPasswordEl = document.querySelector("#password")
+        const upperCheck = document.querySelector("#uppercase-check")
+        const numberCheck = document.querySelector("#number-check")
+        const symbolCheck = document.querySelector("#symbol-check")
+        const statusBar = document.querySelector("#security-indicator-bar")
+        const statusForce = document.querySelector("#status")
 
         function generatePassword() {
             let chars = "abcdefghjklmnpqrstuvxyz"
@@ -78,14 +84,15 @@
             let password = ""
 
             passwordSecurity()
+            calculateFontSize()
             
-            if (document.querySelector("#uppercase-check").checked) {
+            if (upperCheck.checked) {
                 chars += upperCaseChars
             }
-            if (document.querySelector("#number-check").checked) {
+            if (numberCheck.checked) {
                 chars += numberChars
             }
-            if (document.querySelector("#symbol-check").checked) {
+            if (symbolCheck.checked) {
                 chars += symbolChars
             }
             
@@ -109,14 +116,71 @@
         })
 
         function passwordSecurity () {
-            const statusBar = document.querySelector("#security-indicator-bar")
+            let percent =  Math.round((inputRange / 64) * 100)
+            let passCheck = 0
 
-            if (inputRange >= 20) {
+            if (upperCheck.checked == true || numberCheck.checked == true || symbolCheck.checked == true) {
+                if (upperCheck.checked == true) {passCheck++}
+                if (numberCheck.checked == true) {passCheck++}
+                if (symbolCheck.checked == true) {passCheck++}
+            } else {
+                passCheck = 0
+            }
+
+            switch (passCheck) {
+                case 3:
+                    percent += 15
+                    break
+                case 2:
+                    percent += 10
+                    break
+                case 1:
+                    percent += 5
+                    break
+                default:
+                    percent -= 5
+                    break
+            }
+            if (percent < 0) {
+                statusBar.style.width = `2%`
+            } else if (percent > 100) {
+                statusBar.style.width = `100%`
+            } else {
+                statusBar.style.width = `${percent}%`
+            }
+
+            if (percent >= 100) {
+                statusBar.className = "bar safe complete"
+                statusForce.innerText = "Senha muito segura"
+            } else if (percent >= 70 && percent < 100) {
                 statusBar.className = "bar safe"
-            } else if (inputRange >= 16) {
+                statusForce.innerText = "Senha segura"
+            } else if (percent >= 40 && percent < 70) {
                 statusBar.className = "bar warning"
-            } else if (inputRange < 16) {
+                statusForce.innerText = "Senha razoável"
+            } else if (percent < 40) {
                 statusBar.className = "bar critical"
+                statusForce.innerText = "Senha fraca"
+            }
+        }
+
+        function calculateFontSize() {
+            if (inputRange > 51) {
+                inputPasswordEl.classList.remove("font-sm")
+                inputPasswordEl.classList.remove("font-xs")
+                inputPasswordEl.classList.add("font-xxs")
+            } else if (inputRange > 38) {
+                inputPasswordEl.classList.remove("font-sm")
+                inputPasswordEl.classList.remove("font-xxs")
+                inputPasswordEl.classList.add("font-xs")
+            } else if (inputRange > 25) {
+                inputPasswordEl.classList.remove("font-xxs")
+                inputPasswordEl.classList.remove("font-xs")
+                inputPasswordEl.classList.add("font-sm")
+            } else {
+                inputPasswordEl.classList.remove("font-sm")
+                inputPasswordEl.classList.remove("font-xs")
+                inputPasswordEl.classList.remove("font-xxs")
             }
         }
 
