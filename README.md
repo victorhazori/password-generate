@@ -1,3 +1,3 @@
 # Victor Magalhães
-/ Gerador de Senhas
-/ By Victor Magalhães
+<br> Gerador de Senhas
+<br> By Victor Magalhães
